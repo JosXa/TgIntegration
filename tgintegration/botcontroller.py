@@ -22,6 +22,7 @@ from pyrogram.raw.functions.users import GetFullUser
 from pyrogram.raw.types import BotInfo
 from pyrogram.raw.types import InputPeerUser
 from pyrogram.raw.types.messages import BotResults
+from pyrogram.types import Document
 from pyrogram.types import Message
 from pyrogram.types import User
 from typing_extensions import AsyncContextManager
@@ -298,6 +299,25 @@ class BotController:
             text += " ".join(args)
 
         return await self.client.send_message(peer or self.peer_id, text)
+
+    async def send_message(
+        self,
+        peer: Union[int, str] = None,
+    ) -> Message:
+        """
+        Send a message to the chat.
+        """
+        return await self.client.send_message(peer or self.peer_id, text)
+
+    async def send_document(
+        self,
+        filename: str,
+        peer: Union[int, str] = None,
+    ) -> Document:
+        """
+        Send a file.
+        """
+        return await self.client.send_document(peer or self.peer_id, filename)
 
     async def _iter_bot_results(
         self,
